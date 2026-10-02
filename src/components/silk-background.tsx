@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useReducedMotion } from "motion/react";
 
 const vertexSource = `
@@ -213,6 +213,7 @@ void main() {
 
 export function SilkBackground() {
   const reduceMotion = useReducedMotion();
+  const [contextGeneration, setContextGeneration] = useState(0);
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
@@ -220,7 +221,7 @@ export function SilkBackground() {
     const gl = canvas?.getContext("webgl", { alpha: true, antialias: false, depth: false, stencil: false });
     if (!canvas || !gl) return;
     const mobile = window.matchMedia("(max-width: 760px), (pointer: coarse)").matches;
-    const frameInterval = mobile ? 1000 / 30 : 0;
+    const frameInterval = reduceMotion ? 1000 / 10 : mobile ? 1000 / 30 : 0;
 
     const compile = (type: number, source: string) => {
       const shader = gl.createShader(type);
@@ -286,14 +287,15 @@ export function SilkBackground() {
     let frame = 0;
     let elapsed = 0;
     let previous = 0;
+    let contextLost = false;
     const render = (now: number) => {
       frame = 0;
-      if (document.hidden) return;
-      if (!reduceMotion) frame = requestAnimationFrame(render);
+      if (document.hidden || contextLost) return;
+      frame = requestAnimationFrame(render);
       if (previous && now - previous < frameInterval) return;
       if (previous) elapsed += Math.min(now - previous, 100);
       previous = now;
-      gl.uniform4f(locations.scene, canvas.width, canvas.height, (elapsed / 1000) * 0.58, 4.0);
+      gl.uniform4f(locations.scene, canvas.width, canvas.height, (elapsed / 1000) * (reduceMotion ? 0.12 : 0.58), 4.0);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
     };
     const onVisibility = () => {
@@ -301,27 +303,44 @@ export function SilkBackground() {
         cancelAnimationFrame(frame);
         frame = 0;
         previous = 0;
-      } else if (!frame) frame = requestAnimationFrame(render);
+      } else if (!frame && !contextLost) frame = requestAnimationFrame(render);
+    };
+    const onContextLost = (event: Event) => {
+      event.preventDefault();
+      contextLost = true;
+      cancelAnimationFrame(frame);
+      frame = 0;
+      previous = 0;
+    };
+    const onContextRestored = () => {
+      // Restored WebGL contexts need new shaders, buffers and uniforms.
+      setContextGeneration(generation => generation + 1);
     };
     const observer = new ResizeObserver(() => {
       resize();
-      // A resized canvas is cleared even when the background is static.
-      if (reduceMotion && !document.hidden && !frame) frame = requestAnimationFrame(render);
+      previous = 0;
+      onVisibility();
     });
     observer.observe(canvas);
     document.addEventListener("visibilitychange", onVisibility);
+    window.addEventListener("pageshow", onVisibility);
+    canvas.addEventListener("webglcontextlost", onContextLost);
+    canvas.addEventListener("webglcontextrestored", onContextRestored);
     frame = requestAnimationFrame(render);
 
     return () => {
       cancelAnimationFrame(frame);
       document.removeEventListener("visibilitychange", onVisibility);
+      window.removeEventListener("pageshow", onVisibility);
+      canvas.removeEventListener("webglcontextlost", onContextLost);
+      canvas.removeEventListener("webglcontextrestored", onContextRestored);
       observer.disconnect();
       gl.deleteBuffer(buffer);
       gl.deleteProgram(program);
       gl.deleteShader(vertex);
       gl.deleteShader(fragment);
     };
-  }, [reduceMotion]);
+  }, [reduceMotion, contextGeneration]);
 
   return <canvas ref={canvasRef} className="silk-background" aria-hidden="true" />;
 }

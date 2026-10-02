@@ -9,6 +9,7 @@ function mount(file, component, { mobile = true, reduced = false } = {}) {
   let resize;
   let intersect;
   let cleanup;
+  let rebuilds = 0;
   const frames = new Map();
   const listeners = new Map();
   let nextFrame = 0;
@@ -18,7 +19,11 @@ function mount(file, component, { mobile = true, reduced = false } = {}) {
       : key.startsWith('create') ? () => ({}) : () => {},
     set: () => true,
   });
-  const canvas = { clientWidth: 390, clientHeight: 844, getContext: () => context };
+  const canvasListeners = new Map();
+  const windowListeners = new Map();
+  const canvas = { clientWidth: 390, clientHeight: 844, getContext: () => context,
+    addEventListener: (name, callback) => canvasListeners.set(name, callback),
+    removeEventListener: name => canvasListeners.delete(name) };
   const host = { getBoundingClientRect: () => ({ width: 390, height: 844 }) };
   const refs = component === 'GravityStars' ? [host, canvas] : [canvas];
   const document = { hidden: false, visibilityState: 'visible',
@@ -28,12 +33,14 @@ function mount(file, component, { mobile = true, reduced = false } = {}) {
   const sandbox = {
     exports: {}, console, Float32Array, Math, performance: { now: () => 0 }, document,
     window: { devicePixelRatio: 3, matchMedia: () => ({ matches: mobile }),
-      addEventListener() {}, removeEventListener() {} },
+      addEventListener: (name, callback) => windowListeners.set(name, callback),
+      removeEventListener: name => windowListeners.delete(name) },
     requestAnimationFrame, cancelAnimationFrame: id => frames.delete(id),
     ResizeObserver: class { constructor(callback) { resize = callback; } observe() {} disconnect() {} },
     IntersectionObserver: class { constructor(callback) { intersect = callback; } observe() {} disconnect() {} },
     require: name => name === 'react' ? {
       useRef: () => ({ current: refs.shift() }), useEffect: effect => { cleanup = effect(); },
+      useState: () => [0, update => { assert.equal(update(0), 1); rebuilds++; }],
     } : name === 'motion/react' ? { useReducedMotion: () => reduced }
       : { jsx: () => null, jsxs: () => null },
   };
@@ -43,6 +50,14 @@ function mount(file, component, { mobile = true, reduced = false } = {}) {
   sandbox.exports[component]({});
   return {
     canvas, frames, get draws() { return draws; }, cleanup: () => cleanup(),
+    get rebuilds() { return rebuilds; },
+    contextLost: () => {
+      let prevented = false;
+      canvasListeners.get('webglcontextlost')({ preventDefault: () => { prevented = true; } });
+      assert.ok(prevented, 'Context loss must allow browser restoration');
+    },
+    contextRestored: () => canvasListeners.get('webglcontextrestored')(),
+    pageshow: () => windowListeners.get('pageshow')(),
     resize: () => resize(), intersect: visible => intersect([{ isIntersecting: visible }]),
     visibility: visible => {
       document.hidden = !visible;
@@ -82,19 +97,30 @@ silk.tick(134);
 assert.equal(silk.draws, 2);
 silk.visibility(false);
 assert.equal(silk.frames.size, 0, 'Hidden tabs must stop rendering');
+silk.visibility(true); silk.tick(200);
+assert.equal(silk.draws, 3, 'Returning to the tab must restart the background');
+silk.contextLost();
+assert.equal(silk.frames.size, 0, 'Lost contexts must pause rendering');
+silk.pageshow();
+assert.equal(silk.frames.size, 0, 'Lost contexts must wait for restoration');
+silk.contextRestored();
+assert.equal(silk.rebuilds, 1, 'Restoration must rebuild graphics resources');
 silk.cleanup();
 
 for (const [file, component] of [[starsFile, 'GravityStars'], [silkFile, 'SilkBackground']]) {
   const effect = mount(file, component, { reduced: true });
   if (component === 'GravityStars') effect.intersect(true);
   effect.tick(100);
-  assert.equal(effect.frames.size, 0, 'Reduced motion must not run a continuous animation');
+  assert.equal(effect.frames.size, component === 'SilkBackground' ? 1 : 0);
   if (component === 'SilkBackground') {
     const previousDraws = effect.draws;
     effect.canvas.clientWidth = 400;
     effect.resize(); effect.tick(200);
-    assert.equal(effect.draws, previousDraws + 1, 'Static background must redraw after resize');
-    assert.equal(effect.frames.size, 0);
+    assert.equal(effect.draws, previousDraws + 1, 'Background must redraw after resize');
+    effect.tick(216);
+    assert.equal(effect.draws, previousDraws + 1, 'Reduced motion must use a lower frame rate');
+    effect.tick(300);
+    assert.equal(effect.draws, previousDraws + 2, 'Reduced motion must keep gentle animation');
   }
   effect.cleanup();
 }
