@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import "./globals.css";
+import "./mobile.css";
 import { SilkBackground } from "@/components/silk-background";
 import { LanguageProvider } from "@/components/language-provider";
 
