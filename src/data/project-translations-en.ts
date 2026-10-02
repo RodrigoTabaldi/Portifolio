@@ -1,4 +1,5 @@
 type ProjectTranslationEn = {
+  title: string;
   category: string;
   tagline: string;
   description: string;
@@ -12,6 +13,7 @@ type ProjectTranslationEn = {
 
 export const projectTranslationsEn: Record<string, ProjectTranslationEn> = {
   vistora: {
+    title: "Vistora · Property inspection SaaS",
     category: "Full Stack",
     tagline: "Organized inspections, from property to report.",
     description: "A multi-company property inspection platform with reusable checklists, photographic evidence, and report generation.",
@@ -28,9 +30,10 @@ export const projectTranslationsEn: Record<string, ProjectTranslationEn> = {
     technologyAreas: ["Web", "API & Documents", "Data & Messaging", "Delivery & Quality"],
   },
   triar: {
+    title: "Triar · Cross-platform speech and language screening",
     category: "Full Stack",
     tagline: "Guided triage on the web and in the app.",
-    description: "Questionnaires, scoring, and history in a web and .NET MAUI experience, with local individual and API-connected modes.",
+    description: "Web and app software for speech and language screening, developed with the goal of expanding access across Brazil. Combines questionnaires, scoring, and history in local and connected modes.",
     imageLabel: "Project interface",
     coverLabel: "Brand identity",
     status: "Academic prototype in development. The catalog has not been clinically validated, and results are educational.",
@@ -44,9 +47,10 @@ export const projectTranslationsEn: Record<string, ProjectTranslationEn> = {
     technologyAreas: ["API", "Application", "Web", "Data & Tools"],
   },
   voytek: {
+    title: "Voytek · Fintech with AI agents",
     category: "AI & Governance",
     tagline: "Agent autonomy, with clear boundaries.",
-    description: "Governance for AI agent operations with policies, logical limits, human approval, and audit records.",
+    description: "A fintech MVP focused on AI agent governance: autonomy with policies, budget limits, human approval, and traceable decisions.",
     imageLabel: "Project interface",
     coverLabel: "Brand identity",
     status: "MVP in development. Budgets are logical limits: the system does not hold funds, process payments, or execute external tasks.",
@@ -60,6 +64,7 @@ export const projectTranslationsEn: Record<string, ProjectTranslationEn> = {
     technologyAreas: ["API", "Web", "Data", "Operations"],
   },
   kronos: {
+    title: "Kronos · Financial management for better decisions",
     category: "Full Stack",
     tagline: "Clarity for better financial decisions.",
     description: "Financial management with cash flow, debt planning, simulations, and reports for individuals and small businesses.",
@@ -76,6 +81,7 @@ export const projectTranslationsEn: Record<string, ProjectTranslationEn> = {
     technologyAreas: ["Frontend", "API & Services", "Data & Infrastructure", "Quality"],
   },
   fastcare: {
+    title: "FASTcare · Technology supporting caregivers",
     category: "Frontend",
     tagline: "Accessible information for caregivers.",
     description: "An educational guide to the seven stages of the FAST scale, with practical guidance for families and caregivers.",
@@ -91,6 +97,7 @@ export const projectTranslationsEn: Record<string, ProjectTranslationEn> = {
     technologyAreas: ["Interface", "Content & Typography", "Deployment"],
   },
   atlas: {
+    title: "Atlas UFR · Visual learning platform for morphology",
     category: "Frontend",
     tagline: "Knowledge brought to life.",
     description: "A digital morphology atlas with a visual catalog, searchable glossary, and content organized by study area.",

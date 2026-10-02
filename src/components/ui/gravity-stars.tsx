@@ -76,12 +76,15 @@ export function GravityStars({
     let height = 1;
     let frame = 0;
     let running = false;
+    let inViewport = false;
     let pointerActive = false;
     let pointerX = 0;
     let pointerY = 0;
     let lastTime = 0;
     let seeded = false;
-    const amount = clamp(Math.round(count), 8, 260);
+    const mobile = window.matchMedia("(max-width: 760px), (pointer: coarse)").matches;
+    const frameInterval = mobile ? 1000 / 30 : 0;
+    const amount = clamp(Math.round(count), 8, mobile ? 36 : 260);
     const stars: Star[] = [];
     const baseColor = resolveColor(color);
 
@@ -105,7 +108,7 @@ export function GravityStars({
 
     const resize = () => {
       const rect = host.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, mobile ? 1 : 2);
       const previousWidth = width;
       const previousHeight = height;
       width = Math.max(rect.width, 1);
@@ -135,8 +138,9 @@ export function GravityStars({
             const b = stars[j];
             const dx = a.x - b.x;
             const dy = a.y - b.y;
-            const distance = Math.hypot(dx, dy);
-            if (distance > connectDistance) continue;
+            const distanceSq = dx * dx + dy * dy;
+            if (distanceSq > connectDistance * connectDistance) continue;
+            const distance = Math.sqrt(distanceSq);
             context.globalAlpha = (1 - distance / connectDistance) * 0.32;
             context.strokeStyle = baseColor;
             context.lineWidth = 0.6;
@@ -166,6 +170,8 @@ export function GravityStars({
 
     const tick = (time: number) => {
       if (!running) return;
+      frame = requestAnimationFrame(tick);
+      if (lastTime && time - lastTime < frameInterval) return;
       const delta = Math.min((time - (lastTime || time)) / 1000, 0.04);
       lastTime = time;
       for (const star of stars) {
@@ -190,11 +196,10 @@ export function GravityStars({
         if (star.y > height) star.y -= height;
       }
       draw(time);
-      frame = requestAnimationFrame(tick);
     };
 
     const start = () => {
-      if (running || paused || reduceMotion) return;
+      if (running || paused || reduceMotion || !inViewport || document.hidden) return;
       running = true;
       lastTime = 0;
       frame = requestAnimationFrame(tick);
@@ -205,6 +210,7 @@ export function GravityStars({
       draw(performance.now());
     };
     const handlePointer = (event: PointerEvent) => {
+      if (!running || mobile) return;
       const rect = host.getBoundingClientRect();
       pointerActive =
         event.clientX >= rect.left && event.clientX <= rect.right &&
@@ -222,13 +228,13 @@ export function GravityStars({
     window.addEventListener("pointermove", handlePointer, { passive: true });
     document.addEventListener("visibilitychange", handleVisibility);
     const visibilityObserver = new IntersectionObserver(([entry]) => {
+      inViewport = entry.isIntersecting;
       if (entry.isIntersecting) start();
       else stop();
     });
     visibilityObserver.observe(host);
     resize();
     draw(0);
-    start();
 
     return () => {
       stop();

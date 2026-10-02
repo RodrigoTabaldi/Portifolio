@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import { useReducedMotion } from "motion/react";
 
 const vertexSource = `
 attribute vec2 a_position;
@@ -211,12 +212,15 @@ void main() {
 `;
 
 export function SilkBackground() {
+  const reduceMotion = useReducedMotion();
   const canvasRef = useRef<HTMLCanvasElement>(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     const gl = canvas?.getContext("webgl", { alpha: true, antialias: false, depth: false, stencil: false });
     if (!canvas || !gl) return;
+    const mobile = window.matchMedia("(max-width: 760px), (pointer: coarse)").matches;
+    const frameInterval = mobile ? 1000 / 30 : 0;
 
     const compile = (type: number, source: string) => {
       const shader = gl.createShader(type);
@@ -257,7 +261,7 @@ export function SilkBackground() {
       space: uniform("u_space"), cursor: uniform("u_cursor"),
     };
     const resize = () => {
-      const ratio = Math.min(window.devicePixelRatio || 1, 2);
+      const ratio = Math.min(window.devicePixelRatio || 1, mobile ? 1 : 2);
       const width = Math.max(1, Math.round(canvas.clientWidth * ratio));
       const height = Math.max(1, Math.round(canvas.clientHeight * ratio));
       if (canvas.width !== width || canvas.height !== height) {
@@ -266,8 +270,6 @@ export function SilkBackground() {
         gl.viewport(0, 0, width, height);
       }
     };
-    const observer = new ResizeObserver(resize);
-    observer.observe(canvas);
     resize();
 
     gl.uniform3fv(locations.colors, new Float32Array([
@@ -287,11 +289,12 @@ export function SilkBackground() {
     const render = (now: number) => {
       frame = 0;
       if (document.hidden) return;
+      if (!reduceMotion) frame = requestAnimationFrame(render);
+      if (previous && now - previous < frameInterval) return;
       if (previous) elapsed += Math.min(now - previous, 100);
       previous = now;
       gl.uniform4f(locations.scene, canvas.width, canvas.height, (elapsed / 1000) * 0.58, 4.0);
       gl.drawArrays(gl.TRIANGLES, 0, 3);
-      frame = requestAnimationFrame(render);
     };
     const onVisibility = () => {
       if (document.hidden) {
@@ -300,6 +303,12 @@ export function SilkBackground() {
         previous = 0;
       } else if (!frame) frame = requestAnimationFrame(render);
     };
+    const observer = new ResizeObserver(() => {
+      resize();
+      // A resized canvas is cleared even when the background is static.
+      if (reduceMotion && !document.hidden && !frame) frame = requestAnimationFrame(render);
+    });
+    observer.observe(canvas);
     document.addEventListener("visibilitychange", onVisibility);
     frame = requestAnimationFrame(render);
 
@@ -312,7 +321,7 @@ export function SilkBackground() {
       gl.deleteShader(vertex);
       gl.deleteShader(fragment);
     };
-  }, []);
+  }, [reduceMotion]);
 
   return <canvas ref={canvasRef} className="silk-background" aria-hidden="true" />;
 }

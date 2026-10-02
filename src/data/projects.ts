@@ -4,6 +4,7 @@ export type Category = "Todos" | "Full Stack" | "Frontend" | "IA & Governança" 
 export type Project = {
   slug: string;
   name: string;
+  title: string;
   category: Exclude<Category, "Todos">;
   tagline: string;
   description: string;
@@ -23,6 +24,7 @@ const featuredProjects: Project[] = [
   {
     slug: "vistora",
     name: "Vistora",
+    title: "Vistora · SaaS para vistorias imobiliárias",
     category: "Full Stack",
     tagline: "Vistorias organizadas. Do imóvel ao laudo.",
     description:
@@ -45,10 +47,11 @@ const featuredProjects: Project[] = [
   {
     slug: "triar",
     name: "Triar",
+    title: "Triar · Triagem fonoaudiológica multiplataforma",
     category: "Full Stack",
     tagline: "Triagem guiada, na web e no aplicativo.",
     description:
-      "Questionários, pontuação e histórico em uma experiência web e .NET MAUI, com modos individual local e conectado à API.",
+      "Software com site web e aplicativo para triagens fonoaudiológicas, desenvolvido com foco em ampliar o acesso em todo o Brasil. Reúne questionários, pontuação e histórico em modos local e conectado.",
     image: "/images/triar.png",
     cover: "/images/triar-logo.png",
     coverLabel: "Identidade visual",
@@ -67,10 +70,11 @@ const featuredProjects: Project[] = [
   {
     slug: "voytek",
     name: "Voytek",
+    title: "Voytek · Fintech com agentes de IA",
     category: "IA & Governança",
     tagline: "Autonomia de agentes, com limites claros.",
     description:
-      "Governança de operações de agentes de IA com políticas, limites lógicos, aprovação humana e registros de auditoria.",
+      "MVP de fintech voltado à governança de agentes de IA: autonomia com políticas, limites de orçamento, aprovação humana e rastreabilidade das decisões.",
     image: "/images/voytek.png",
     cover: "/images/voytek-logo.png",
     coverLabel: "Identidade visual",
@@ -89,6 +93,7 @@ const featuredProjects: Project[] = [
   {
     slug: "kronos",
     name: "Kronos",
+    title: "Kronos · Gestão financeira para decisões melhores",
     category: "Full Stack",
     tagline: "Clareza para decidir sobre as finanças.",
     description:
@@ -110,6 +115,7 @@ const featuredProjects: Project[] = [
   {
     slug: "fastcare",
     name: "FASTcare",
+    title: "FASTcare · Tecnologia a serviço de quem cuida",
     category: "Frontend",
     tagline: "Informação acessível para quem cuida.",
     description:
@@ -133,6 +139,7 @@ const featuredProjects: Project[] = [
   {
     slug: "atlas",
     name: "Atlas de Morfologia UFR",
+    title: "Atlas UFR · Plataforma visual de ensino em morfologia",
     category: "Frontend",
     tagline: "Conhecimento que ganha forma.",
     description:

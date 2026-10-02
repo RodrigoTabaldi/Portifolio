@@ -1,11 +1,11 @@
 "use client";
 
 import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ArrowRight, ArrowUpRight, Github, X } from "lucide-react";
 import { projects, type Project } from "@/data/projects";
 import githubProjects from "@/data/github-projects.json";
-import { ProjectReadme } from "@/components/project-readme";
 import { ProjectTechnology } from "@/components/project-technology";
 import { projectTranslationsEn } from "@/data/project-translations-en";
 import { ShinyButton } from "@/components/ui/shiny-button";
@@ -13,10 +13,13 @@ import { BorderChromeRing } from "@/components/ui/border-chrome-ring";
 import { GravityStars } from "@/components/ui/gravity-stars";
 import { useLanguage } from "@/components/language-provider";
 
+const ProjectReadme = dynamic(() => import("@/components/project-readme").then(module => module.ProjectReadme));
+
 export function Projects() {
   const { language } = useLanguage();
   const english = language === "en";
   const [selected, setSelected] = useState<Project | null>(null);
+  const [readmeOpen, setReadmeOpen] = useState(false);
   const dialog = useRef<HTMLDialogElement>(null);
   const opener = useRef<HTMLButtonElement | null>(null);
 
@@ -35,6 +38,7 @@ export function Projects() {
   }
   function afterClose() {
     setSelected(null);
+    setReadmeOpen(false);
     opener.current?.focus();
   }
 
@@ -89,9 +93,8 @@ export function Projects() {
                   src={project.cover ?? project.image}
                   alt={project.cover ? (english ? `${projectTranslationsEn[project.slug]?.coverLabel ?? "Cover"} for ${project.name}` : `Capa de ${project.name}`) : `${english ? projectTranslationsEn[project.slug]?.imageLabel ?? "Project image" : project.imageLabel}: ${project.name}`}
                   fill
-                  sizes="(max-width: 640px) 95vw, (max-width: 1050px) 48vw, 32vw"
-                  quality={100}
-                  unoptimized={Boolean(project.cover)}
+                  sizes="(max-width: 760px) 95vw, (max-width: 1050px) 44vw, 24vw"
+                  quality={75}
                 />
                 <span className="image-open">
                   <ArrowUpRight size={22} />
@@ -100,7 +103,7 @@ export function Projects() {
               </div>
             </button>
             <div className="project-body">
-              <h3>{project.name}</h3>
+              <h3>{english ? projectTranslationsEn[project.slug]?.title ?? project.title : project.title}</h3>
               <p>{english ? projectTranslationsEn[project.slug]?.description ?? project.description : project.description}</p>
               <div className="project-tags">
                 {project.stack.map((tech) => (
@@ -115,7 +118,7 @@ export function Projects() {
                   setSelected(project);
                 }}
               >
-                {english ? "View project" : "Ver projeto"} <ArrowRight size={19} />
+                {english ? "Explore solution" : "Conhecer solução"} <ArrowRight size={19} />
               </ShinyButton>
               {project.website && (
                 <a className="project-web-link" href={project.website} target="_blank" rel="noopener noreferrer" aria-label={english ? `Visit ${project.name} website (opens in new tab)` : `Acessar site de ${project.name} (abre em nova aba)`}>
@@ -168,11 +171,11 @@ export function Projects() {
                 alt={`${selectedText?.imageLabel ?? selected.imageLabel}: ${selected.name}`}
                 fill
                 sizes="(max-width: 760px) 95vw, 780px"
-                quality={100}
+                quality={75}
               />
             </div>
             <div className="dialog-content">
-              <h2 id="dialog-title">{selected.name}</h2>
+              <h2 id="dialog-title">{selectedText?.title ?? selected.title}</h2>
               <p className="dialog-tagline">{selectedText?.tagline ?? selected.tagline}</p>
               <p>{selectedText?.description ?? selected.description}</p>
               <h3>{english ? "Technologies used" : "Tecnologias utilizadas"}</h3>
@@ -183,14 +186,16 @@ export function Projects() {
                 <section className="project-gallery" aria-label={english ? "Project images" : "Imagens do projeto"}>
                   {selectedImport?.images.map(image => (
                     <a href={image.src} target="_blank" rel="noopener noreferrer" key={image.src} aria-label={english ? `Open image: ${image.alt}` : `Abrir imagem: ${image.alt}`}>
-                      <Image src={image.src} alt={image.alt} width={800} height={500} unoptimized />
+                      <Image src={image.src} alt={image.alt} width={800} height={500} sizes="(max-width: 760px) 90vw, 380px" quality={75} />
                     </a>
                   ))}
                 </section>
               )}
-              <h3>{english ? "Full repository README" : "README completo do repositório"}</h3>
-              <p className="readme-source-note">{english ? "Original content from GitHub, in the author's language." : "Conteúdo original do GitHub, no idioma do autor."}</p>
-              <ProjectReadme key={selected.repo} path={selectedImport?.readme ?? null} english={english} />
+              <details className="project-documentation" onToggle={event => setReadmeOpen(event.currentTarget.open)}>
+                <summary>{english ? "Read full documentation and architecture" : "Ler documentação completa e arquitetura"}</summary>
+                <p className="readme-source-note">{english ? "Original content from GitHub, in the author's language." : "Conteúdo original do GitHub, no idioma do autor."}</p>
+                {readmeOpen && <ProjectReadme key={selected.repo} path={selectedImport?.readme ?? null} english={english} />}
+              </details>
               <div className="project-tags">
                 {selected.stack.map((tech) => (
                   <ProjectTechnology key={tech} name={tech} />
