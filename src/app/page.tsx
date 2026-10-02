@@ -28,9 +28,9 @@ export default function Home() {
               <h1 id="hero-title">Rodrigo Tabaldi</h1>
               <p className="hero-description">
                 {english ? (
-                  <><strong>Software Engineer</strong> · Backend · Full Stack — focused on building scalable software products and modern web applications.</>
+                  <><strong>Software Engineer</strong> · Backend · Full Stack, focused on building scalable software products and modern web applications.</>
                 ) : (
-                  <><strong>Engenheiro de Software</strong> · Backend · Full Stack — focado em construir produtos de software escaláveis e aplicações web modernas.</>
+                  <><strong>Engenheiro de Software</strong> · Backend · Full Stack, focado em construir produtos de software escaláveis e aplicações web modernas.</>
                 )}
               </p>
               <p className="hero-language">
