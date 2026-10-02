@@ -1,4 +1,5 @@
 import Image from "next/image";
+import { Globe } from "lucide-react";
 import { useLanguage } from "@/components/language-provider";
 
 const technologies = [
@@ -13,7 +14,10 @@ const technologies = [
 ] as const;
 
 function TechnologySymbol({ name, mark }: { name: string; mark?: string }) {
-  if (name === "C#" || name === ".NET" || name === "ASP.NET") {
+  if (name === "ASP.NET") {
+    return <Globe size={22} strokeWidth={1.8} aria-hidden="true" />;
+  }
+  if (name === "C#" || name === ".NET") {
     return <span className={`stack-wordmark stack-wordmark-${name.replace(/[^a-z0-9]/gi, "").toLowerCase()}`} aria-hidden="true">{mark}</span>;
   }
   if (name === "PYTHON") return (

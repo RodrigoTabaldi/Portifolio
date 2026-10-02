@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { ArrowUp, ArrowUpRight, Github, Linkedin, Mail, MessageCircle } from "lucide-react";
+import { ArrowUp, ArrowUpRight, Github, Languages, Linkedin, Mail, MessageCircle } from "lucide-react";
 import { Navigation } from "@/components/navigation";
 import { Motion } from "@/components/motion";
 import { Projects } from "@/components/projects";
@@ -32,6 +32,10 @@ export default function Home() {
                 ) : (
                   <><strong>Engenheiro de Software</strong> · Backend · Full Stack — focado em construir produtos de software escaláveis e aplicações web modernas.</>
                 )}
+              </p>
+              <p className="hero-language">
+                <Languages size={16} strokeWidth={1.7} aria-hidden="true" />
+                <span>{english ? "Advanced English" : "Inglês avançado"}</span>
               </p>
               <FeaturedStack />
               <div className="hero-actions">

@@ -7,6 +7,7 @@ import {
   Bot,
   Cloud,
   Database,
+  Globe,
   Layers,
   ListChecks,
   PanelsTopLeft,
@@ -85,10 +86,16 @@ const groups = [
 ] as const;
 
 function TechnologyIcon({ name, slug }: { name: string; slug: string }) {
+  if (name === "ASP.NET") {
+    return (
+      <span className="stack-tech-icon" aria-hidden="true">
+        <Globe size={22} strokeWidth={1.8} />
+      </span>
+    );
+  }
   const wordmarks: Record<string, string> = {
     "C#": "C#",
     ".NET": ".NET",
-    "ASP.NET": "ASP.NET",
     "SQL Server": "SQL",
   };
   const icons: Record<string, typeof Layers> = {

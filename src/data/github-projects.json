@@ -1,0 +1,494 @@
+[
+  {
+    "repo": "TriarCompleto",
+    "description": "Cross-platform and Web Site health screening system built with .NET MAUI, ASP.NET Core, SQL Server and Redis, with JWT authentication, encryption and automated scoring.",
+    "website": "",
+    "language": "C#",
+    "readme": "/readmes/TriarCompleto.md",
+    "images": [
+      {
+        "src": "/github/TriarCompleto/2795ac2516db3aa2.png",
+        "alt": "Triar React website dashboard",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/TriarCompleto/main/docs/images/web-dashboard.png"
+      },
+      {
+        "src": "/github/TriarCompleto/4d183b20bbc5b6be.png",
+        "alt": "login.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/TriarCompleto/main/docs/images/login.png"
+      },
+      {
+        "src": "/github/TriarCompleto/722a8ee90c4acd4a.png",
+        "alt": "dashboard.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/TriarCompleto/main/docs/images/dashboard.png"
+      },
+      {
+        "src": "/github/TriarCompleto/a27c31f50d31593a.png",
+        "alt": "triage-form.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/TriarCompleto/main/docs/images/triage-form.png"
+      },
+      {
+        "src": "/github/TriarCompleto/cba9075cee8d3e17.png",
+        "alt": "custom-triage.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/TriarCompleto/main/docs/images/custom-triage.png"
+      },
+      {
+        "src": "/github/TriarCompleto/c68facb90ed65e29.png",
+        "alt": "history.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/TriarCompleto/main/docs/images/history.png"
+      }
+    ],
+    "source": "https://github.com/RodrigoTabaldi/TriarCompleto",
+    "branch": "main",
+    "technologies": [
+      "C#",
+      "ASP.NET",
+      ".NET MAUI",
+      ".NET",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "HTML",
+      "CSS",
+      "Vite",
+      "React Router",
+      "Firebase",
+      "PostgreSQL",
+      "SQL Server",
+      "SQLite",
+      "Redis",
+      "Docker",
+      "Nginx",
+      "PowerShell"
+    ]
+  },
+  {
+    "repo": "Kronos",
+    "description": "Financial management and debt-reduction platform built with React, TypeScript and Firebase, featuring cash flow, debt analysis, simulations, reports and financial insights.",
+    "website": "https://kronosgestaofinanceira.vercel.app",
+    "language": "TypeScript",
+    "readme": "/readmes/Kronos.md",
+    "images": [
+      {
+        "src": "/github/Kronos/cf0fe54b17267eb5.png",
+        "alt": "kronos-logo-stacked.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/Kronos/main/public/brand/kronos-logo-stacked.png"
+      }
+    ],
+    "source": "https://github.com/RodrigoTabaldi/Kronos",
+    "branch": "main",
+    "technologies": [
+      "React",
+      "TypeScript",
+      "Node.js",
+      "NestJS",
+      "CSS",
+      "Tailwind CSS",
+      "Vite",
+      "React Router",
+      "Firebase",
+      "PostgreSQL",
+      "Redis",
+      "Docker",
+      "GitHub Actions",
+      "AWS",
+      "Vercel",
+      "Netlify",
+      "Nginx",
+      "Terraform",
+      "Kubernetes",
+      "Vitest",
+      "Socket.IO",
+      "Zod"
+    ]
+  },
+  {
+    "repo": "FASTcare",
+    "description": "Web application focused on dementia assessment using the FAST scale, built with React and TypeScript with structured clinical guidance.",
+    "website": "https://fastcare-nine.vercel.app",
+    "language": "TypeScript",
+    "readme": "/readmes/FASTcare.md",
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/FASTcare",
+    "branch": "main",
+    "technologies": [
+      "React",
+      "TypeScript",
+      "Next.js",
+      "Node.js",
+      "CSS",
+      "Vercel",
+      "Netlify"
+    ]
+  },
+  {
+    "repo": "VistoraSaas",
+    "description": "Saas de vistoria imobiliaria para empresas",
+    "website": "",
+    "language": "C#",
+    "readme": "/readmes/VistoraSaas.md",
+    "images": [
+      {
+        "src": "/github/VistoraSaas/cc4f321a9a6ce296.png",
+        "alt": "Vistora dashboard",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/VistoraSaas/main/docs/images/dashboard.png"
+      },
+      {
+        "src": "/github/VistoraSaas/bfb565f10e417aaa.png",
+        "alt": "login.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/VistoraSaas/main/docs/images/login.png"
+      },
+      {
+        "src": "/github/VistoraSaas/eb303c808c3f3ab8.png",
+        "alt": "inspections.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/VistoraSaas/main/docs/images/inspections.png"
+      },
+      {
+        "src": "/github/VistoraSaas/8e4845efdf15b08a.png",
+        "alt": "properties.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/VistoraSaas/main/docs/images/properties.png"
+      },
+      {
+        "src": "/github/VistoraSaas/ba86f0c80cbea6df.png",
+        "alt": "analytics.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/VistoraSaas/main/docs/images/analytics.png"
+      }
+    ],
+    "source": "https://github.com/RodrigoTabaldi/VistoraSaas",
+    "branch": "main",
+    "technologies": [
+      "C#",
+      "ASP.NET",
+      ".NET",
+      "React",
+      "TypeScript",
+      "Next.js",
+      "PostgreSQL",
+      "Redis",
+      "RabbitMQ",
+      "Docker",
+      "GitHub Actions",
+      "AWS",
+      "Cloudflare",
+      "Nginx"
+    ]
+  },
+  {
+    "repo": "STS-Documentation",
+    "description": "Bilingual software documentation toolkit with PowerShell automation, SHA-256 verification and structured guidance for requirements, architecture, ADRs and traceability.",
+    "website": "",
+    "language": "PowerShell",
+    "readme": "/readmes/STS-Documentation.md",
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/STS-Documentation",
+    "branch": "main",
+    "technologies": [
+      "Docker",
+      "PowerShell",
+      "Markdown"
+    ]
+  },
+  {
+    "repo": "sistemagestaoTI",
+    "description": "Enterprise IT management system built with ASP.NET Core, EF Core and layered architecture, featuring asset inventory, help desk workflows, audit trails, role-based access and cloud-ready deployment.",
+    "website": "",
+    "language": "C#",
+    "readme": "/readmes/sistemagestaoTI.md",
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/sistemagestaoTI",
+    "branch": "main",
+    "technologies": [
+      "C#",
+      "ASP.NET",
+      ".NET"
+    ]
+  },
+  {
+    "repo": "dashboard-financeiro",
+    "description": "Personal finance dashboard built with Python, SQLite and Matplotlib for tracking expenses, income and financial indicators.",
+    "website": "",
+    "language": "HTML",
+    "readme": null,
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/dashboard-financeiro",
+    "branch": "master",
+    "technologies": [
+      "Python",
+      "HTML",
+      "SQLite",
+      "Matplotlib"
+    ]
+  },
+  {
+    "repo": "Atlas-Morfologia-UFR",
+    "description": "Interactive morphology atlas built with React and TypeScript, providing responsive navigation, search and educational content for health sciences.",
+    "website": "https://atlasmorfologiaufr.vercel.app/",
+    "language": "TypeScript",
+    "readme": "/readmes/Atlas-Morfologia-UFR.md",
+    "images": [
+      {
+        "src": "/github/Atlas-Morfologia-UFR/84690995e64eb22b.png",
+        "alt": "Atlas home page",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/Atlas-Morfologia-UFR/main/docs/images/home.png"
+      },
+      {
+        "src": "/github/Atlas-Morfologia-UFR/c1d5d7a17b760bef.png",
+        "alt": "Cell topic page",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/Atlas-Morfologia-UFR/main/docs/images/topic.png"
+      },
+      {
+        "src": "/github/Atlas-Morfologia-UFR/33107ec304c590c2.png",
+        "alt": "Exercises page",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/Atlas-Morfologia-UFR/main/docs/images/exercises.png"
+      },
+      {
+        "src": "/github/Atlas-Morfologia-UFR/bdc21faf3230ede2.png",
+        "alt": "Academic glossary page",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/Atlas-Morfologia-UFR/main/docs/images/glossary.png"
+      }
+    ],
+    "source": "https://github.com/RodrigoTabaldi/Atlas-Morfologia-UFR",
+    "branch": "main",
+    "technologies": [
+      "React",
+      "TypeScript",
+      "CSS",
+      "Vite",
+      "React Router",
+      "Docker",
+      "Vercel"
+    ]
+  },
+  {
+    "repo": "Software-conciliacao-bancaria",
+    "description": "Bank reconciliation tool built with Python and pandas to compare financial records from OFX, CSV and PDF files and generate Excel reports.",
+    "website": "",
+    "language": "HTML",
+    "readme": null,
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/Software-conciliacao-bancaria",
+    "branch": "master",
+    "technologies": [
+      "Python",
+      "HTML",
+      "pandas"
+    ]
+  },
+  {
+    "repo": "erp-comercio",
+    "description": "Business management ERP built with Python, Flet and SQLite for sales, inventory, customers, suppliers, finance and automated reporting.",
+    "website": "",
+    "language": "HTML",
+    "readme": "/readmes/erp-comercio.md",
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/erp-comercio",
+    "branch": "main",
+    "technologies": [
+      "Python",
+      "SQLite",
+      "Flet"
+    ]
+  },
+  {
+    "repo": "FintechVoytek",
+    "description": "Fintech and AI agent governance platform built with .NET, React and PostgreSQL, featuring budgets, policies, approvals, ledger and audit trails.",
+    "website": "",
+    "language": "C#",
+    "readme": "/readmes/FintechVoytek.md",
+    "images": [
+      {
+        "src": "/github/FintechVoytek/8117fcddf5f82a50.png",
+        "alt": "dashboard.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/FintechVoytek/main/docs/images/dashboard.png"
+      },
+      {
+        "src": "/github/FintechVoytek/e312770c0119fe17.png",
+        "alt": "agents.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/FintechVoytek/main/docs/images/agents.png"
+      },
+      {
+        "src": "/github/FintechVoytek/bdbb8174c63b12fc.png",
+        "alt": "automation.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/FintechVoytek/main/docs/images/automation.png"
+      },
+      {
+        "src": "/github/FintechVoytek/5cd9241093bec06b.png",
+        "alt": "budgets.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/FintechVoytek/main/docs/images/budgets.png"
+      },
+      {
+        "src": "/github/FintechVoytek/4bd3d28423b56b1b.png",
+        "alt": "shadow-mode.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/FintechVoytek/main/docs/images/shadow-mode.png"
+      },
+      {
+        "src": "/github/FintechVoytek/4bdb272d4bdf8cf5.png",
+        "alt": "login.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/FintechVoytek/main/docs/images/login.png"
+      },
+      {
+        "src": "/github/FintechVoytek/815e93d98fd7e390.png",
+        "alt": "agent-commerce.png",
+        "source": "https://raw.githubusercontent.com/RodrigoTabaldi/FintechVoytek/main/docs/images/agent-commerce.png"
+      }
+    ],
+    "source": "https://github.com/RodrigoTabaldi/FintechVoytek",
+    "branch": "main",
+    "technologies": [
+      "C#",
+      "ASP.NET",
+      ".NET",
+      "React",
+      "TypeScript",
+      "Node.js",
+      "CSS",
+      "Vite",
+      "PostgreSQL",
+      "Docker",
+      "GitHub Actions"
+    ]
+  },
+  {
+    "repo": "TriarSiteDowload",
+    "description": "Site para disponibilizar o dowload do triar",
+    "website": "",
+    "language": "TypeScript",
+    "readme": "/readmes/TriarSiteDowload.md",
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/TriarSiteDowload",
+    "branch": "main",
+    "technologies": [
+      "TypeScript"
+    ]
+  },
+  {
+    "repo": "VitrineSoftware",
+    "description": "..",
+    "website": "",
+    "language": "TypeScript",
+    "readme": "/readmes/VitrineSoftware.md",
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/VitrineSoftware",
+    "branch": "main",
+    "technologies": [
+      "TypeScript"
+    ]
+  },
+  {
+    "repo": "CardanFrotas",
+    "description": "Software de controle de frotas",
+    "website": "",
+    "language": "TypeScript",
+    "readme": null,
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/CardanFrotas",
+    "branch": "main",
+    "technologies": [
+      "TypeScript"
+    ]
+  },
+  {
+    "repo": "Vistora",
+    "description": "Site de vistoria imobiliaria",
+    "website": "",
+    "language": "C#",
+    "readme": "/readmes/Vistora.md",
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/Vistora",
+    "branch": "main",
+    "technologies": [
+      "ASP.NET",
+      ".NET",
+      "JavaScript",
+      "HTML",
+      "CSS",
+      "PostgreSQL",
+      "Docker"
+    ]
+  },
+  {
+    "repo": "LumiereEsteticaSite",
+    "description": "",
+    "website": "https://lumiereesteticasite.rodrigotabaldi01.workers.dev/",
+    "language": "TypeScript",
+    "readme": "/readmes/LumiereEsteticaSite.md",
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/LumiereEsteticaSite",
+    "branch": "main",
+    "technologies": [
+      "React",
+      "TypeScript",
+      "Vite",
+      "GSAP"
+    ]
+  },
+  {
+    "repo": "NoirAtelieSite",
+    "description": "",
+    "website": "https://noiratelie.rodrigotabaldi01.workers.dev/",
+    "language": "JavaScript",
+    "readme": "/readmes/NoirAtelieSite.md",
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/NoirAtelieSite",
+    "branch": "main",
+    "technologies": [
+      "JavaScript"
+    ]
+  },
+  {
+    "repo": "SiteAuraStudio",
+    "description": "",
+    "website": "https://siteaurastudio.rodrigotabaldi01.workers.dev/",
+    "language": "JavaScript",
+    "readme": "/readmes/SiteAuraStudio.md",
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/SiteAuraStudio",
+    "branch": "main",
+    "technologies": [
+      "JavaScript"
+    ]
+  },
+  {
+    "repo": "VitrineSites",
+    "description": "Site de negocio para venda de paginas, sites e landing pages",
+    "website": "https://vitrinesites.pages.dev/",
+    "language": "HTML",
+    "readme": "/readmes/VitrineSites.md",
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/VitrineSites",
+    "branch": "main",
+    "technologies": [
+      "React",
+      "CSS",
+      "Vite"
+    ]
+  },
+  {
+    "repo": "triagem-fonoaudiologia-api",
+    "description": "API REST desenvolvida em C# com ASP.NET Core para sistema de triagem em fonoaudiologia. Realiza gerenciamento de pacientes, processamento de respostas e classificação automática de risco, com persistência de dados em SQL Server via Entity Framework Core.",
+    "website": "",
+    "language": "C#",
+    "readme": "/readmes/triagem-fonoaudiologia-api.md",
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/triagem-fonoaudiologia-api",
+    "branch": "main",
+    "technologies": [
+      "C#",
+      "ASP.NET",
+      ".NET",
+      "SQL Server"
+    ]
+  },
+  {
+    "repo": "REQLEARN",
+    "description": "Site de aprendizagem de analise de requisitos de software, site faz parte do projeto final da matéria de informática na educação da Universidade Federal de Rondonópolis",
+    "website": "https://reqlearn.vercel.app",
+    "language": "TypeScript",
+    "readme": "/readmes/REQLEARN.md",
+    "images": [],
+    "source": "https://github.com/RodrigoTabaldi/REQLEARN",
+    "branch": "main",
+    "technologies": [
+      "TypeScript"
+    ]
+  }
+]

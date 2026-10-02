@@ -6,7 +6,7 @@ export type Language = "pt" | "en";
 
 const LanguageContext = createContext<{
   language: Language;
-  toggleLanguage: () => void;
+  setLanguage: (language: Language) => void;
 } | null>(null);
 
 export function LanguageProvider({ children }: { children: ReactNode }) {
@@ -29,7 +29,7 @@ export function LanguageProvider({ children }: { children: ReactNode }) {
     <LanguageContext.Provider
       value={{
         language,
-        toggleLanguage: () => setLanguage((current) => current === "pt" ? "en" : "pt"),
+        setLanguage,
       }}
     >
       {children}

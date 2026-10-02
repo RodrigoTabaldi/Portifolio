@@ -4,7 +4,9 @@ import Image from "next/image";
 import { useEffect, useRef, useState, type CSSProperties } from "react";
 import { ArrowRight, ArrowUpRight, Github, X } from "lucide-react";
 import { projects, type Project } from "@/data/projects";
-import { projectDetails } from "@/data/project-details";
+import githubProjects from "@/data/github-projects.json";
+import { ProjectReadme } from "@/components/project-readme";
+import { ProjectTechnology } from "@/components/project-technology";
 import { projectTranslationsEn } from "@/data/project-translations-en";
 import { ShinyButton } from "@/components/ui/shiny-button";
 import { BorderChromeRing } from "@/components/ui/border-chrome-ring";
@@ -37,6 +39,7 @@ export function Projects() {
   }
 
   const selectedText = selected && english ? projectTranslationsEn[selected.slug] : null;
+  const selectedImport = selected ? githubProjects.find(project => project.repo === selected.repo) : undefined;
 
   return (
     <section
@@ -56,9 +59,9 @@ export function Projects() {
       />
       <div className="section-heading" data-reveal>
         <h2 id="projects-title">{english ? "Projects" : "Projetos"}</h2>
-        <span className="project-count" aria-label={english ? "6 selected projects" : "6 projetos selecionados"}>
+        <span className="project-count" aria-label={english ? `${projects.length} projects` : `${projects.length} projetos`}>
           <i />
-          06
+          {String(projects.length).padStart(2, "0")}
         </span>
       </div>
       <div className="project-grid">
@@ -84,7 +87,7 @@ export function Projects() {
                 <div className={`project-image${project.cover ? " project-cover" : ""}`}>
                 <Image
                   src={project.cover ?? project.image}
-                  alt={project.cover ? (english ? `${projectTranslationsEn[project.slug].coverLabel ?? "Cover"} for ${project.name}` : `Capa de ${project.name}`) : `${english ? projectTranslationsEn[project.slug].imageLabel : project.imageLabel}: ${project.name}`}
+                  alt={project.cover ? (english ? `${projectTranslationsEn[project.slug]?.coverLabel ?? "Cover"} for ${project.name}` : `Capa de ${project.name}`) : `${english ? projectTranslationsEn[project.slug]?.imageLabel ?? "Project image" : project.imageLabel}: ${project.name}`}
                   fill
                   sizes="(max-width: 640px) 95vw, (max-width: 1050px) 48vw, 32vw"
                   quality={100}
@@ -97,15 +100,11 @@ export function Projects() {
               </div>
             </button>
             <div className="project-body">
-              <div className="project-meta">
-                <span>{english ? projectTranslationsEn[project.slug].coverLabel ?? projectTranslationsEn[project.slug].imageLabel : project.coverLabel ?? project.imageLabel}</span>
-                <span>{english ? projectTranslationsEn[project.slug].category : project.category}</span>
-              </div>
               <h3>{project.name}</h3>
-              <p>{english ? projectTranslationsEn[project.slug].description : project.description}</p>
+              <p>{english ? projectTranslationsEn[project.slug]?.description ?? project.description : project.description}</p>
               <div className="project-tags">
                 {project.stack.map((tech) => (
-                  <span key={tech}>{tech}</span>
+                  <ProjectTechnology key={tech} name={tech} />
                 ))}
               </div>
               <ShinyButton
@@ -118,6 +117,11 @@ export function Projects() {
               >
                 {english ? "View project" : "Ver projeto"} <ArrowRight size={19} />
               </ShinyButton>
+              {project.website && (
+                <a className="project-web-link" href={project.website} target="_blank" rel="noopener noreferrer" aria-label={english ? `Visit ${project.name} website (opens in new tab)` : `Acessar site de ${project.name} (abre em nova aba)`}>
+                  {english ? "Visit website" : "Acessar site"} <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
+              )}
             </div>
           </article>
         ))}
@@ -168,46 +172,30 @@ export function Projects() {
               />
             </div>
             <div className="dialog-content">
-              <p className="section-index">
-                {selectedText?.category ?? selected.category} / {selectedText?.imageLabel ?? selected.imageLabel}
-              </p>
               <h2 id="dialog-title">{selected.name}</h2>
               <p className="dialog-tagline">{selectedText?.tagline ?? selected.tagline}</p>
               <p>{selectedText?.description ?? selected.description}</p>
-              <h3>{english ? "Engineering decisions" : "Decisões de engenharia"}</h3>
-              <ul>
-                {(selectedText?.features ?? projectDetails[selected.slug].features).map((feature) => (
-                  <li key={feature}>{feature}</li>
-                ))}
-              </ul>
-              <h3>{english ? "How it works" : "Como funciona"}</h3>
-              <div className="project-architecture" aria-label={english ? "Architecture flow" : "Fluxo da arquitetura"}>
-                {(selectedText?.architecture ?? projectDetails[selected.slug].architecture).map((step, index) => (
-                  <span className="architecture-step" key={step}>
-                    {index > 0 && <ArrowRight aria-hidden="true" size={14} />}
-                    {step}
-                  </span>
-                ))}
-              </div>
               <h3>{english ? "Technologies used" : "Tecnologias utilizadas"}</h3>
-              <div className="project-tech-groups">
-                {projectDetails[selected.slug].technologyGroups.map((group, index) => (
-                  <section className="project-tech-group" key={group.area}>
-                    <h4>{selectedText?.technologyAreas[index] ?? group.area}</h4>
-                    <div className="project-tags">
-                      {group.technologies.map((technology) => (
-                        <span key={technology}>{technology}</span>
-                      ))}
-                    </div>
-                  </section>
-                ))}
+              <div className="project-tags">
+                {(selectedImport?.technologies.length ? selectedImport.technologies : selected.stack).map(tech => <ProjectTechnology key={tech} name={tech} />)}
               </div>
+              {Boolean(selectedImport?.images.length) && (
+                <section className="project-gallery" aria-label={english ? "Project images" : "Imagens do projeto"}>
+                  {selectedImport?.images.map(image => (
+                    <a href={image.src} target="_blank" rel="noopener noreferrer" key={image.src} aria-label={english ? `Open image: ${image.alt}` : `Abrir imagem: ${image.alt}`}>
+                      <Image src={image.src} alt={image.alt} width={800} height={500} unoptimized />
+                    </a>
+                  ))}
+                </section>
+              )}
+              <h3>{english ? "Full repository README" : "README completo do repositório"}</h3>
+              <p className="readme-source-note">{english ? "Original content from GitHub, in the author's language." : "Conteúdo original do GitHub, no idioma do autor."}</p>
+              <ProjectReadme key={selected.repo} path={selectedImport?.readme ?? null} english={english} />
               <div className="project-tags">
                 {selected.stack.map((tech) => (
-                  <span key={tech}>{tech}</span>
+                  <ProjectTechnology key={tech} name={tech} />
                 ))}
               </div>
-              <p className="project-status">{selectedText?.status ?? selected.status}</p>
               <a
                 className="project-readme-link"
                 href={`https://github.com/RodrigoTabaldi/${selected.repo}#readme`}
@@ -226,6 +214,11 @@ export function Projects() {
                 <Github size={18} /> {english ? "Code and documentation" : "Código e documentação"}{" "}
                 <ArrowUpRight size={18} />
               </ShinyButton>
+              {selected.website && (
+                <a className="project-web-link" href={selected.website} target="_blank" rel="noopener noreferrer" aria-label={english ? `Visit ${selected.name} website (opens in new tab)` : `Acessar site de ${selected.name} (abre em nova aba)`}>
+                  {english ? "Visit website" : "Acessar site"} <ArrowUpRight size={16} aria-hidden="true" />
+                </a>
+              )}
             </div>
           </>
         )}

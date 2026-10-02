@@ -1365,6 +1365,45 @@ h1 span {
 .project-tech-group .project-tags span {
   font: 11px/1.4 Arial, sans-serif;
 }
+.project-gallery {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px;
+  margin-block: 24px;
+}
+.project-tags .project-technology { display: inline-flex; align-items: center; gap: 6px; }
+.project-technology img, .project-technology svg { flex: 0 0 16px; }
+.project-architecture-image { margin: 20px 0; padding: 12px; border: 1px solid #263856; border-radius: 10px; background: #0d1523; }
+.project-architecture-image img { display: block; width: 100%; height: auto; }
+.project-architecture-image figcaption { margin-top: 10px; color: #a9bbd7; font-size: 12px; text-align: center; }
+.project-gallery a { display: block; border: 1px solid #263856; border-radius: 8px; overflow: hidden; }
+.project-gallery img { display: block; width: 100%; height: 160px; object-fit: contain; background: #0d1523; }
+.readme-source-note { color: #a9bbd7; font-size: 13px; }
+.project-readme { overflow-wrap: anywhere; margin-block: 24px; }
+.project-readme > :first-child { margin-top: 0; }
+.project-readme h1 { font-size: 28px; }
+.project-readme h2 { font-size: 23px; margin-block: 28px 12px; }
+.project-readme h3 { font-size: 19px; }
+.project-readme a { color: #91aaff; }
+.project-readme img { max-width: 100%; height: auto; }
+.project-readme pre { padding: 16px; overflow-x: auto; border-radius: 8px; background: #0d1523; font-size: 12px; }
+.project-readme code { font-family: Consolas, monospace; }
+.project-readme table { display: block; max-width: 100%; overflow-x: auto; border-collapse: collapse; font-size: 13px; }
+.project-readme th, .project-readme td { padding: 10px; border: 1px solid #263856; text-align: left; }
+.project-readme blockquote { margin-inline: 0; padding-left: 16px; border-left: 3px solid #718cff; color: #a9bbd7; }
+@media (max-width: 600px) { .project-gallery { grid-template-columns: 1fr; } }
+.project-web-link {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  width: fit-content;
+  margin-top: 12px;
+  color: #91aaff;
+  font-size: 13px;
+  text-decoration: none;
+}
+.project-web-link:hover { text-decoration: underline; }
+.project-web-link:focus-visible { outline: 2px solid #91aaff; outline-offset: 4px; }
 .project-readme-link {
   display: inline-flex;
   align-items: center;
@@ -2066,23 +2105,59 @@ h1 span {
   opacity: 0.88;
 }
 .hero-primary-actions .hero-contact { font-size: 11px; }
-.language-toggle {
+.hero-copy > .hero-language {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 14px 0 0;
+  color: #a9bbd7;
+  font-size: 13px;
+  line-height: 1.4;
+}
+.hero-language svg { flex: 0 0 16px; color: #91aaff; }
+.language-selector {
+  display: flex;
   flex: 0 0 auto;
-  padding: 7px 9px;
+  gap: 3px;
+  padding: 3px;
   border: 1px solid #263856;
-  border-radius: 7px;
+  border-radius: 10px;
   background: #080e19;
-  color: #dce6f5;
+}
+.language-option {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  min-height: 44px;
+  padding: 6px 9px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  background: transparent;
+  color: #aab9ce;
   cursor: pointer;
-  font: 700 10px/1 var(--mono);
-  letter-spacing: 0.06em;
+  font: 600 11px/1.2 var(--sans);
   transition: border-color 180ms ease, color 180ms ease, background 180ms ease;
 }
-.language-toggle:hover,
-.language-toggle:focus-visible {
+.language-option[aria-pressed="true"] {
+  border-color: #405b93;
+  background: #172540;
+  color: #fff;
+}
+.language-option:hover,
+.language-option:focus-visible {
   border-color: #718cff;
   background: #101a30;
   color: #91aaff;
+}
+.language-option:focus-visible { outline: 2px solid #91aaff; outline-offset: 2px; }
+.language-flags { display: flex; gap: 4px; }
+.language-flag { display: block; width: 19px; height: 13px; border-radius: 2px; }
+@media (max-width: 600px) {
+  .header-inner { gap: 8px; }
+  .header .brand > span { display: none; }
+  .language-option { padding-inline: 7px; }
 }
 .featured-stack { gap: 7px; margin-top: 16px; }
 .featured-stack > span {

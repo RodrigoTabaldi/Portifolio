@@ -1,4 +1,6 @@
-export type Category = "Todos" | "Full Stack" | "Frontend" | "IA & Governança";
+import githubProjects from "./github-projects.json";
+
+export type Category = "Todos" | "Full Stack" | "Frontend" | "IA & Governança" | "Software";
 export type Project = {
   slug: string;
   name: string;
@@ -13,10 +15,11 @@ export type Project = {
   highlights: string[];
   status: string;
   repo: string;
+  website?: string;
   accent: string;
 };
 
-export const projects: Project[] = [
+const featuredProjects: Project[] = [
   {
     slug: "vistora",
     name: "Vistora",
@@ -101,6 +104,7 @@ export const projects: Project[] = [
     status:
       "MVP em desenvolvimento. A implantação em nuvem e o fluxo distribuído completo ainda não estão validados no README.",
     repo: "Kronos",
+    website: "https://kronosgestaofinanceira.vercel.app/",
     accent: "#e2c07b",
   },
   {
@@ -123,6 +127,7 @@ export const projects: Project[] = [
     status:
       "Projeto educacional. O checklist não determina diagnóstico nem substitui avaliação profissional.",
     repo: "FASTcare",
+    website: "https://fastcare-nine.vercel.app/",
     accent: "#edb990",
   },
   {
@@ -145,6 +150,14 @@ export const projects: Project[] = [
     status:
       "Em desenvolvimento. Conteúdos dos tópicos estão sendo produzidos e revisados; ainda não há PDFs de exercícios publicados.",
     repo: "Atlas-Morfologia-UFR",
+    website: "https://atlasmorfologiaufr.vercel.app/",
     accent: "#a5ccc0",
   },
+];
+
+export const projects: Project[] = [
+  ...featuredProjects.map(project => {
+    const imported = githubProjects.find(entry => entry.repo === project.repo);
+    return { ...project, website: project.website ?? (imported?.website || undefined) };
+  }),
 ];

@@ -5,10 +5,11 @@ import { ArrowUpRight, Menu, X } from "lucide-react";
 import { ShinyButton } from "@/components/ui/shiny-button";
 import { BorderChromeRing } from "@/components/ui/border-chrome-ring";
 import { useLanguage } from "@/components/language-provider";
+import { LanguageFlag } from "@/components/language-flag";
 
 export function Navigation() {
   const [open, setOpen] = useState(false);
-  const { language, toggleLanguage } = useLanguage();
+  const { language, setLanguage } = useLanguage();
   const english = language === "en";
 
   return (
@@ -43,15 +44,16 @@ export function Navigation() {
             {english ? "Let's talk" : "Vamos conversar"} <ArrowUpRight size={16} />
           </ShinyButton>
         </nav>
-        <button
-          type="button"
-          className="language-toggle"
-          onClick={toggleLanguage}
-          aria-label={english ? "Mudar idioma para português" : "Switch language to English"}
-          title={english ? "Português" : "English"}
-        >
-          {english ? "PT" : "EN"}
-        </button>
+        <div className="language-selector" role="group" aria-label={english ? "Language" : "Idioma"}>
+          <button type="button" className="language-option" onClick={() => setLanguage("pt")} aria-pressed={!english} lang="pt">
+            <span className="language-flags" aria-hidden="true"><LanguageFlag country="br" /><LanguageFlag country="pt" /></span>
+            <span>Português</span>
+          </button>
+          <button type="button" className="language-option" onClick={() => setLanguage("en")} aria-pressed={english} lang="en">
+            <span className="language-flags" aria-hidden="true"><LanguageFlag country="us" /><LanguageFlag country="gb" /></span>
+            <span>English</span>
+          </button>
+        </div>
       </div>
     </header>
   );
